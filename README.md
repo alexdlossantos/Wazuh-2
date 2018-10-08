@@ -1,5 +1,6 @@
 # Wazuh
 ## Introducción
+![Wazuh](https://www.osm-s.com/wp-content/uploads/2018/07/banner_05-1024x460.png)
 Wazuh, también conocido como OSSEC Wazuh, es una completa herramienta derivada directamente de los repositorios OSSEC de manera que se pueda brindar un soporte completo a la red, cumplir con las normativas de seguridad y dotar a la herramienta de varias funciones de administración adicionales. Esta plataforma cumple sin problemas con las funciones de monitor y control de sistemas e implementa además módulos HIDS (para detectar intrusos en las redes) mejorados y funciones de seguimiento y control de estado de servidores para ofrecer a los usuarios una completa solución de monitor y seguridad totalmente de código abierto y, sobre todo, con soporte especializado.
 
 Wazuh aporta una serie de características y módulos adicionales de código abierto al proyecto OSSEC como:
