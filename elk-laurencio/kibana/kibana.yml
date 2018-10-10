@@ -1,0 +1,5 @@
+# =================== kibana: kibana.yml ====================== #
+#kibana configuration from kibana-docker.
+server.name: kibana
+server.host: "0"
+elasticsearch.url: http://elasticsearch:9200 #DirecciOn IP del contenedor de elasticsearch

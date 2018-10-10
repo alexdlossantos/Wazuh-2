@@ -1,0 +1,14 @@
+# =================== Filebeat: filebeat.yml ====================== #
+filebeat.config:  
+  prospectors:
+    path: ${path.config}/prospectors.d/*.yml      
+    reload.enabled: false  
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+  
+processors:
+- add_cloud_metadata:
+
+output.logstash:  
+  hosts: ['http://logstash:5044'] #ip o nombre de dominio de logstash
