@@ -4,6 +4,7 @@ Docker Compose es una herramienta que permite simplificar el uso de Docker, gene
 
 ## Instalación de Docker Compose
 Para instalar Docker Compose basta con ejecutar los siguientes comandos:
+
 *Descarga del paquete de **Docker Compose***
 
 ```bash
