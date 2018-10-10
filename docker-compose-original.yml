@@ -14,19 +14,19 @@ services:
 #      - "1516:1516"
     networks:
         - docker_elk
-    volumes:
-      - /var/containers/wazuh/var/ossec/data:/var/ossec/data:Z
-      - /var/containers/wazuh/etc/postfix:/etc/postfix:Z
-      - /var/containers/wazuh/etc/filebeat:/etc/filebeat
-      - /var/containers/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:Z
+#    volumes:
+#      - my-path:/var/ossec/data:Z
+#      - my-path:/etc/postfix:Z
+#      - my-path:/etc/filebeat
+#      - my-custom-config-path/ossec.conf:/wazuh-config-mount/etc/ossec.conf
     depends_on:
       - logstash
   logstash:
     image: wazuh/wazuh-logstash:3.6.1_6.4.2
     hostname: logstash
     restart: always
-    volumes:
-      - /var/containers/wazuh/etc/logstash/conf.d:/etc/logstash/conf.d:Z
+#    volumes:
+#      - my-path:/etc/logstash/conf.d:Z
     links:
       - elasticsearch:elasticsearch
     ports:
@@ -38,26 +38,25 @@ services:
     environment:
       - LS_HEAP_SIZE=2048m
   elasticsearch:
-    image: elasticsearch:5.2.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
     hostname: elasticsearch
     restart: always
     ports:
       - "9200:9200"
-      - "9300:9300"
-    command: elasticsearch -E node.name="node-1" -E cluster.name="wazuh" -E network.host=0.0.0.0
+#      - "9300:9300"
     environment:
-#      - node.name=node-1
-#      - cluster.name=wazuh
-#      - network.host=0.0.0.0
-#      - bootstrap.memory_lock=true
+      - node.name=node-1
+      - cluster.name=wazuh
+      - network.host=0.0.0.0
+      - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     mem_limit: 2g
-    volumes:
-      - /var/containers/wazuh/usr/share/elasticsearch/data:/usr/share/elasticsearch/data:Z
+#    volumes:
+#      - my-path:/usr/share/elasticsearch/data:Z
     networks:
         - docker_elk
   kibana:
@@ -84,8 +83,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - /var/containers/wazuh/etc/nginx/conf.d:/etc/nginx/conf.d:Z
+#    volumes:
+#      - my-path:/etc/nginx/conf.d:Z
     networks:
       - docker_elk
     depends_on:

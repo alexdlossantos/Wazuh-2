@@ -1,4 +1,0 @@
-# =================== Filebeat: prueba.yml ====================== #
-- type: log
-  paths:
-   - /var/log/data.log
