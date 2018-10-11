@@ -11,4 +11,4 @@ processors:
 - add_cloud_metadata:
 
 output.logstash:  
-  hosts: ['http://logstash:5044'] #ip o nombre de dominio de logstash
+  hosts: ['logstash:5044'] #ip o nombre de dominio de logstash

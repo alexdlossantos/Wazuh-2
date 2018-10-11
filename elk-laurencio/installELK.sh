@@ -16,17 +16,8 @@ echo "Elasticsearch creado"
 mkdir -p /var/containers/logstash/pipeline/
 echo "IyA9PT09PT09PT09PT09PT09PT09IExvZ3N0YXNoOiBwaXBlbGluZS55bWwgPT09PT09PT09PT09PT09PT09PT09PSAjCmlucHV0eyAgCiAgICBiZWF0c3sKICAgICAgICBwb3J0ID0+ICI1MDQ0IiAgfQp9Cm91dHB1dHsgIAogICAgZWxhc3RpY3NlYXJjaCB7CiAgICAgICAgaG9zdHMgPT4gWydodHRwOi8vZWxhc3RpY3NlYXJjaDo5MjAwJ10gI0lQIHkgcHVlcnRvIGRlbCBjb250ZW5lZG9yIGRlIEVsYXN0aWNzZWFyY2gKICAgICAgICBpbmRleCA9PiAibG9nc3Rhc2gtJXsrWVlZWS5NTS5kZH0iICNOb21icmUgZGVsIGluZGljZSAgCiAgICAgICAgfQp9" | base64 -w0 -d > /var/containers/logstash/pipeline/pipeline.conf
 #Creación de contenedor de logstash
-docker run --rm -d --name=logstash_wazuh_1 --link=elasticsearch_wazuh_1:elasticsearch -v /var/containers/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z docker.elastic.co/logstash/logstash-oss:6.2.1
+docker run --rm -d --name=logstash_wazuh_1 --link=elasticsearch_wazuh_1:elasticsearch -v /var/containers/logstash/pipeline/:/usr/share/logstash/pipeline:z docker.elastic.co/logstash/logstash-oss:6.2.1
 echo "Logstash creado"
-
-#Creación y configuración de directorios para filebeat
-mkdir -p /var/containers/logstash/filebeat/
-mkdir -p /var/containers/logstash/filebeat/prospectors.d
-echo "IyA9PT09PT09PT09PT09PT09PT09IEZpbGViZWF0OiBmaWxlYmVhdC55bWwgPT09PT09PT09PT09PT09PT09PT09PSAjCmZpbGViZWF0LmNvbmZpZzogIAogIHByb3NwZWN0b3JzOgogICAgcGF0aDogJHtwYXRoLmNvbmZpZ30vcHJvc3BlY3RvcnMuZC8qLnltbCAgICAgIAogICAgcmVsb2FkLmVuYWJsZWQ6IGZhbHNlICAKICBtb2R1bGVzOgogICAgcGF0aDogJHtwYXRoLmNvbmZpZ30vbW9kdWxlcy5kLyoueW1sCiAgICByZWxvYWQuZW5hYmxlZDogZmFsc2UKICAKcHJvY2Vzc29yczoKLSBhZGRfY2xvdWRfbWV0YWRhdGE6CgpvdXRwdXQubG9nc3Rhc2g6ICAKICBob3N0czogWydodHRwOi8vbG9nc3Rhc2g6NTA0NCddICNpcCBvIG5vbWJyZSBkZSBkb21pbmlvIGRlIGxvZ3N0YXNo" | base64 -w0 -d > /var/containers/logstash/filebeat/filebeat.yml
-echo "IyA9PT09PT09PT09PT09PT09PT09IEZpbGViZWF0OiBwcnVlYmEueW1sID09PT09PT09PT09PT09PT09PT09PT0gIwotIHR5cGU6IGxvZyAgCiAgcGF0aHM6ICAgCiAgLSAvdmFyL2xvZy9kYXRhLmxvZw==" | base64 -w0 -d > /var/containers/logstash/filebeat/prospectors.d/prueba.yml
-#Creación de contenedor de filebeat
-docker run -d --name=filebeat_wazuh_1 --link=logstash_wazuh_1:logstash -v /var/containers/logstash/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml -v /var/containers/logstash/filebeat/prospectors.d:/usr/share/filebeat/prospectors.d -v /var/containers/logstash/filebeat/data.log:/var/log/data.log docker.elastic.co/beats/filebeat:6.2.1
-echo "Filebeat creado"
 
 #Creación y configuración de directorios para kibana
 mkdir -p /var/containers/elk/kibana/
@@ -34,4 +25,13 @@ echo "IyA9PT09PT09PT09PT09PT09PT09IGtpYmFuYToga2liYW5hLnltbCA9PT09PT09PT09PT09PT
 docker run --name=kibana_wazuh_1 --link=elasticsearch_wazuh_1:elasticsearch -p 5601:5601 -d -v /var/containers/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z docker.elastic.co/kibana/kibana-oss:6.2.2
 echo "Kibana creado"
 
-echo "Consulta la ruta http://localhost:5601"
+#Creación y configuración de directorios para filebeat
+mkdir -p /var/containers/logstash/filebeat/
+mkdir -p /var/containers/logstash/filebeat/prospectors.d
+echo "IyA9PT09PT09PT09PT09PT09PT09IEZpbGViZWF0OiBmaWxlYmVhdC55bWwgPT09PT09PT09PT09PT09PT09PT09PSAjCmZpbGViZWF0LmNvbmZpZzogIAogIHByb3NwZWN0b3JzOgogICAgcGF0aDogJHtwYXRoLmNvbmZpZ30vcHJvc3BlY3RvcnMuZC8qLnltbCAgICAgIAogICAgcmVsb2FkLmVuYWJsZWQ6IGZhbHNlICAKICBtb2R1bGVzOgogICAgcGF0aDogJHtwYXRoLmNvbmZpZ30vbW9kdWxlcy5kLyoueW1sCiAgICByZWxvYWQuZW5hYmxlZDogZmFsc2UKICAKcHJvY2Vzc29yczoKLSBhZGRfY2xvdWRfbWV0YWRhdGE6CgpvdXRwdXQubG9nc3Rhc2g6ICAKICBob3N0czogWydsb2dzdGFzaDo1MDQ0J10gI2lwIG8gbm9tYnJlIGRlIGRvbWluaW8gZGUgbG9nc3Rhc2gK" | base64 -w0 -d > /var/containers/logstash/filebeat/filebeat.yml
+echo "IyA9PT09PT09PT09PT09PT09PT09IEZpbGViZWF0OiBwcnVlYmEueW1sID09PT09PT09PT09PT09PT09PT09PT0gIwotIHR5cGU6IGxvZyAgCiAgcGF0aHM6ICAgCiAgLSAvdmFyL2xvZy9kYXRhLmxvZw==" | base64 -w0 -d > /var/containers/logstash/filebeat/prospectors.d/prueba.yml
+#Creación de contenedor de filebeat
+docker run -d --name=filebeat_wazuh_1 --link=logstash_wazuh_1:logstash -v /var/containers/logstash/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml -v /var/containers/logstash/filebeat/prospectors.d:/usr/share/filebeat/prospectors.d -v /var/containers/logstash/filebeat/data.log:/var/log/data.log:z docker.elastic.co/beats/filebeat:6.2.1
+echo "Filebeat creado"
+
+echo "Consulta http://localhost:5601"
