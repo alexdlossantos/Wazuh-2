@@ -9,7 +9,7 @@ echo "Memoria virtual modificada"
 #Creación y configuración de directorios para elasticsearch
 mkdir -p /var/containers/elk/elasticsearch/
 echo "IyA9PT09PT09PT09PT09PT09PT09IEVTTEFTVElDU0VBUkNIOiBlbGFzdGljc2VhcmNoLnltbCA9PT09PT09PT09PT09PT09PT09PT09ICMKY2x1c3Rlci5uYW1lOiAiZG9ja2VyLWNsdXN0ZXIiCm5ldHdvcmsuaG9zdDogMC4wLjAuMAojIG1pbmltdW1fbWFzdGVyX25vZGVzIG5lZWQgdG8gYmUgZXhwbGljaXRseSBzZXQgd2hlbiBib3VuZCBvbiBhIHB1YmxpYyBJUAojIHNldCB0byAxIHRvIGFsbG93IHNpbmdsZSBub2RlIGNsdXN0ZXJzCiMgRGV0YWlsczogaHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWMvZWxhc3RpY3NlYXJjaC9wdWxsLzE3Mjg4CmRpc2NvdmVyeS56ZW4ubWluaW11bV9tYXN0ZXJfbm9kZXM6IDE=" | base64 -w0 -d > /var/containers/elk/elasticsearch/elasticsearch.yml
-docker run --name=elasticsearch_wazuh_1 -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+docker run --name=elasticsearch_wazuh_1 -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z docker.elastic.co/elasticsearch/elasticsearch:6.4.2
 echo "Elasticsearch creado"
 
 #Creación y configuración de directorios para logstash
@@ -30,7 +30,7 @@ echo "Wazuh creado"
 #Creación y configuración de directorios para kibana
 mkdir -p /var/containers/elk/kibana/
 echo "IyA9PT09PT09PT09PT09PT09PT09IGtpYmFuYToga2liYW5hLnltbCA9PT09PT09PT09PT09PT09PT09PT09ICMKI2tpYmFuYSBjb25maWd1cmF0aW9uIGZyb20ga2liYW5hLWRvY2tlci4Kc2VydmVyLm5hbWU6IGtpYmFuYQpzZXJ2ZXIuaG9zdDogIjAiCmVsYXN0aWNzZWFyY2gudXJsOiBodHRwOi8vZWxhc3RpY3NlYXJjaDo5MjAwICNEaXJlY2NpT24gSVAgZGVsIGNvbnRlbmVkb3IgZGUgZWxhc3RpY3NlYXJjaA==" | base64 -w0 -d > /var/containers/elk/kibana/kibana.yml
-docker run --name=kibana_wazuh_1 --link=elasticsearch_wazuh_1:elasticsearch --link=logstash_wazuh_1:logstash -p 5601:5601 -d -v /var/containers/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z docker.elastic.co/kibana/kibana-oss:6.2.2
+docker run --name=kibana_wazuh_1 --link=elasticsearch_wazuh_1:elasticsearch --link=logstash_wazuh_1:logstash -p 5601:5601 -d -v /var/containers/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z wazuh/wazuh-kibana:3.6.1_6.4.2
 echo "Kibana creado"
 
 echo "Consulta la ruta http://localhost:5601"
