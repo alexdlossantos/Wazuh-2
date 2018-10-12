@@ -1,10 +1,7 @@
 #!/bin/bash
-mkdir -p /var/containers/wazuh/
-chcon -R system_u:object_r:admin_home_t:s0 /var/containers/wazuh/
-echo "Contextualización de SELinux"
 
+setenforce 0
 sysctl -w vm.max_map_count=262144
-echo "Memoria virtual modificada"
 
 #Creación y configuración de directorios para elasticsearch
 mkdir -p /var/containers/wazuh/elk/elasticsearch/
