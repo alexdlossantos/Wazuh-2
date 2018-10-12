@@ -30,4 +30,4 @@ echo "IyA9PT09PT09PT09PT09PT09PT09IGtpYmFuYToga2liYW5hLnltbCA9PT09PT09PT09PT09PT
 docker run --name=kibana_wazuh_1 --link=elasticsearch_wazuh_1:elasticsearch --link=logstash_wazuh_1:logstash -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z wazuh/wazuh-kibana:3.6.1_6.4.2
 echo "Kibana creado"
 
-echo "Consulta la ruta http://localhost:5601"
+echo "Consulta http://localhost:5601"
