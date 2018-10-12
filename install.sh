@@ -1,5 +1,5 @@
 #!/bin/bash
-
+mkdir -p /var/containers/wazuh/
 chcon -R system_u:object_r:admin_home_t:s0 /var/containers/wazuh/
 echo "Contextualización de SELinux"
 
