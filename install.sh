@@ -27,7 +27,7 @@ echo "Wazuh creado"
 #Creación y configuración de directorios para kibana
 mkdir -p /var/containers/wazuh/elk/kibana/
 echo "IyA9PT09PT09PT09PT09PT09PT09IGtpYmFuYToga2liYW5hLnltbCA9PT09PT09PT09PT09PT09PT09PT09ICMKI2tpYmFuYSBjb25maWd1cmF0aW9uIGZyb20ga2liYW5hLWRvY2tlci4Kc2VydmVyLm5hbWU6IGtpYmFuYQpzZXJ2ZXIuaG9zdDogIjAiCmVsYXN0aWNzZWFyY2gudXJsOiBodHRwOi8vZWxhc3RpY3NlYXJjaDo5MjAwICNEaXJlY2NpT24gSVAgZGVsIGNvbnRlbmVkb3IgZGUgZWxhc3RpY3NlYXJjaA==" | base64 -w0 -d > /var/containers/wazuh/elk/kibana/kibana.yml
-docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=logstash_wazuh:logstash -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z wazuh/wazuh-kibana:3.6.1_6.4.2
+docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=logstash_wazuh:logstash --link=wazuh:wazuh -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z wazuh/wazuh-kibana:3.6.1_6.4.2
 echo "Kibana creado"
 
 echo "Consulta http://localhost:5601"
