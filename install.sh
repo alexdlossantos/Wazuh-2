@@ -26,6 +26,7 @@ echo "Logstash creado"
 mkdir -p /var/containers/wazuh/wazuh/wazuh-config-mount/etc/
 mkdir -p /var/containers/wazuh/wazuh/etc/filebeat/
 mkdir -p /var/containers/wazuh/wazuh/var/ossec/etc/shared/
+mkdir -p /var/containers/wazuh/wazuh/var/log/
 touch /var/containers/wazuh/wazuh/var/log/mail.log #Verificar que esto este bien
 
 echo "IyA9PT09PT09PT09PT09PT09PT09IEZpbGViZWF0OiBmaWxlYmVhdC55bWwgPT09PT09PT09PT09PT09PT09PT09PSAjCmZpbGViZWF0LmNvbmZpZzo
