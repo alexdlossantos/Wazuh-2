@@ -2,7 +2,6 @@
 ## Prerequisitos
 * Tener instalado:
     * **Docker**
-    * **Docker Compose**
 
 * Aumentar la cantidad de memoria virtual del host, de no hacer esto **Elasticsearch** probablemente NO funcionará.
     ```bash
