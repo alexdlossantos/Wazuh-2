@@ -67,7 +67,7 @@ discovery.zen.minimum_master_nodes: 1
 Finalmente procedemos a crear el contenedor correspondiente a Elasticsearch con el comando:
 
 ```bash
-docker run --name=elasticsearch_wazuh -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+docker run --name=elasticsearch_wazuh -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/elasticsearch/elasticsearch:6.4.2
 ```
 
 ### Instalación de Logstash
@@ -96,7 +96,7 @@ output{
 Finalmente procedemos a crear el contenedor correspondiente a Logstash con el comando:
 
 ```bash
-docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z docker.elastic.co/logstash/logstash-oss:6.2.1
+docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/logstash/logstash-oss:6.2.1
 ```
 
 ### Instalación de Wazuh
@@ -1290,7 +1290,7 @@ f:/etc/passwd -> !r:^# && !r:^root: && r:^\w+:\w+:0:;
 Finalmente para crear el contenedor correspondiente al API de Wazuh ejecutamos el siguiente comando:
 
 ```bash
-docker run --name=wazuh -d --link=logstash_wazuh:logstash -p 1514:1514/udp -p 1515:1515 -p 514:514/udp -p 55000:55000 -v /var/containers/wazuh/wazuh/var/ossec/data:/var/ossec/data:z -v /var/containers/wazuh/wazuh/etc/postfix:/etc/postfix:z -v /var/containers/wazuh/wazuh/etc/filebeat:/etc/filebeat:z -v /var/containers/wazuh/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:z -v /var/containers/wazuh/wazuh/etc/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml:z -v /var/containers/wazuh/wazuh/var/ossec/etc/shared/:/var/ossec/etc/shared/:z -v /var/containers/wazuh/wazuh/var/log/mail.log:/var/log/mail.log:z wazuh/wazuh:3.6.1_6.4.2
+docker run --name=wazuh -d --link=logstash_wazuh:logstash -p 1514:1514/udp -p 1515:1515 -p 514:514/udp -p 55000:55000 -v /var/containers/wazuh/wazuh/var/ossec/data:/var/ossec/data:z -v /var/containers/wazuh/wazuh/etc/postfix:/etc/postfix:z -v /var/containers/wazuh/wazuh/etc/filebeat:/etc/filebeat:z -v /var/containers/wazuh/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:z -v /var/containers/wazuh/wazuh/etc/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml:z -v /var/containers/wazuh/wazuh/var/ossec/etc/shared/:/var/ossec/etc/shared/:z -v  /var/containers/wazuh/wazuh/var/log/mail.log:/var/log/mail.log:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh:3.6.1_6.4.2
 ```
 
 ### Instalación de Kibana
@@ -1313,7 +1313,7 @@ elasticsearch.url: http://elasticsearch:9200 #DirecciOn IP del contenedor de ela
 Finalmente para crear el contenedor correspondiente a Kibana ejecutamos el siguiente comando:
 
 ```bash
-docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=logstash_wazuh:logstash --link=wazuh:wazuh -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z wazuh/wazuh-kibana:3.6.1_6.4.2
+docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=logstash_wazuh:logstash --link=wazuh:wazuh -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh-kibana:3.6.1_6.4.2
 ```
 
 **Hasta este punto el servidor de Wazuh ya se encuentra corriendo, de tal forma que al entrar en el navegador a http://localhost:5601 podremos ver desplegado el dashboard de Kiabana con el modulo de Wazuh integrado**

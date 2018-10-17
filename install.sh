@@ -9,7 +9,7 @@ echo "IyA9PT09PT09PT09PT09PT09PT09IEVTTEFTVElDU0VBUkNIOiBlbGFzdGljc2VhcmNoLnltbC
 Rlci5uYW1lOiAiZG9ja2VyLWNsdXN0ZXIiCm5ldHdvcmsuaG9zdDogMC4wLjAuMAojIG1pbmltdW1fbWFzdGVyX25vZGVzIG5lZWQgdG8gYmUgZXhwbGljaX
 RseSBzZXQgd2hlbiBib3VuZCBvbiBhIHB1YmxpYyBJUAojIHNldCB0byAxIHRvIGFsbG93IHNpbmdsZSBub2RlIGNsdXN0ZXJzCiMgRGV0YWlsczogaHR0cH
 M6Ly9naXRodWIuY29tL2VsYXN0aWMvZWxhc3RpY3NlYXJjaC9wdWxsLzE3Mjg4CmRpc2NvdmVyeS56ZW4ubWluaW11bV9tYXN0ZXJfbm9kZXM6IDE=" | base64 -w0 -d > /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml
-docker run --name=elasticsearch_wazuh -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+docker run --name=elasticsearch_wazuh -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/elasticsearch/elasticsearch:6.4.2
 echo "Elasticsearch creado"
 
 #Creación y configuración de directorios para logstash
@@ -19,7 +19,7 @@ echo "IyA9PT09PT09PT09PT09PT09PT09IExvZ3N0YXNoOiBwaXBlbGluZS55bWwgPT09PT09PT09PT
 c3RpY3NlYXJjaDo5MjAwJ10gI0lQIHkgcHVlcnRvIGRlbCBjb250ZW5lZG9yIGRlIEVsYXN0aWNzZWFyY2gKICAgICAgICBpbmRleCA9PiAibG9nc3Rhc2gtJ
 XsrWVlZWS5NTS5kZH0iICNOb21icmUgZGVsIGluZGljZSAgCiAgICAgICAgfQp9Cg==" | base64 -w0 -d > /var/containers/wazuh/logstash/pipeline/pipeline.conf
 #Creación de contenedor de logstash
-docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z docker.elastic.co/logstash/logstash-oss:6.2.1
+docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/logstash/logstash-oss:6.2.1
 echo "Logstash creado"
 
 #Creación y configuración de directorios para wazuh
@@ -546,7 +546,7 @@ Y2NvdW50IHdpdGggdWlkIDAge0NJUzogMTMuMTEgRGViaWFuIExpbnV4fSB7UENJX0RTUzogMTAuMi41
 XR5Lm9yZy90b29sczIvbGludXgvQ0lTX0RlYmlhbl9CZW5jaG1hcmtfdjEuMC5wZGZdCmY6L2V0Yy9wYXNzd2QgLT4gIXI6XiMgJiYgIXI6XnJvb3Q6ICYmIHI6Xlx3Kz
 pcdys6MDo7Cg==" | base64 -w0 -d > /var/containers/wazuh/wazuh/var/ossec/etc/shared/cis_debian_linux_rcl.txt
 
-docker run --name=wazuh -d --link=logstash_wazuh:logstash -p 1514:1514/udp -p 1515:1515 -p 514:514/udp -p 55000:55000 -v /var/containers/wazuh/wazuh/var/ossec/data:/var/ossec/data:z -v /var/containers/wazuh/wazuh/etc/postfix:/etc/postfix:z -v /var/containers/wazuh/wazuh/etc/filebeat:/etc/filebeat:z -v /var/containers/wazuh/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:z -v /var/containers/wazuh/wazuh/etc/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml:z -v /var/containers/wazuh/wazuh/var/ossec/etc/shared/:/var/ossec/etc/shared/:z -v /var/containers/wazuh/wazuh/var/log/mail.log:/var/log/mail.log:z wazuh/wazuh:3.6.1_6.4.2
+docker run --name=wazuh -d --link=logstash_wazuh:logstash -p 1514:1514/udp -p 1515:1515 -p 514:514/udp -p 55000:55000 -v /var/containers/wazuh/wazuh/var/ossec/data:/var/ossec/data:z -v /var/containers/wazuh/wazuh/etc/postfix:/etc/postfix:z -v /var/containers/wazuh/wazuh/etc/filebeat:/etc/filebeat:z -v /var/containers/wazuh/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:z -v /var/containers/wazuh/wazuh/etc/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml:z -v /var/containers/wazuh/wazuh/var/ossec/etc/shared/:/var/ossec/etc/shared/:z -v /var/containers/wazuh/wazuh/var/log/mail.log:/var/log/mail.log:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh:3.6.1_6.4.2
 echo "Wazuh creado"
 
 #Creación y configuración de directorios para kibana
@@ -554,7 +554,7 @@ mkdir -p /var/containers/wazuh/elk/kibana/
 echo "IyA9PT09PT09PT09PT09PT09PT09IGtpYmFuYToga2liYW5hLnltbCA9PT09PT09PT09PT09PT09PT09PT09ICMKI2tpYmFuYSBjb25maWd1cmF0aW9uIGZy
 b20ga2liYW5hLWRvY2tlci4Kc2VydmVyLm5hbWU6IGtpYmFuYQpzZXJ2ZXIuaG9zdDogIjAiCmVsYXN0aWNzZWFyY2gudXJsOiBodHRwOi8vZWxhc3RpY3NlYXJjaD
 o5MjAwICNEaXJlY2NpT24gSVAgZGVsIGNvbnRlbmVkb3IgZGUgZWxhc3RpY3NlYXJjaA==" | base64 -w0 -d > /var/containers/wazuh/elk/kibana/kibana.yml
-docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=logstash_wazuh:logstash --link=wazuh:wazuh -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z wazuh/wazuh-kibana:3.6.1_6.4.2
+docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=logstash_wazuh:logstash --link=wazuh:wazuh -p 5601:5601 -d -v /var/containers/wazuh/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh-kibana:3.6.1_6.4.2
 echo "Kibana creado"
 
 echo "Consulta http://localhost:5601"
