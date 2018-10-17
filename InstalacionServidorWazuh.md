@@ -1317,3 +1317,5 @@ docker run --name=kibana_wazuh --link=elasticsearch_wazuh:elasticsearch --link=l
 ```
 
 **Hasta este punto el servidor de Wazuh ya se encuentra corriendo, de tal forma que al entrar en el navegador a http://localhost:5601 podremos ver desplegado el dashboard de Kiabana con el modulo de Wazuh integrado**
+
+NOTA: Todas las herramientas para la administracion de Wazuh se encuentran en el directorio **/var/ossec/bin/**

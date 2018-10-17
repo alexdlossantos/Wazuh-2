@@ -22,3 +22,4 @@ Una vez creado el repositorio lo instalamos con el siguiente comando:
 ```bash
 yum install wazuh-agent -y
 ```
+NOTA: Todas las herramientas para la administracion de Wazuh se encuentran en el directorio **/var/ossec/bin/**
