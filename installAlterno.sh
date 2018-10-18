@@ -33,7 +33,7 @@ ICJvc2NhcCIsICJhdWRpdCIsICJ0aW1lc3RhbXAiLCAiYmVhdCIsICJpbnB1dF90eXBlIiwgInRhZ3Mi
 IFsiZGF0YTIiXQogIH0KCn0Kb3V0cHV0IHsKICAgIGVsYXN0aWNzZWFyY2ggewogICAgICAgIGhvc3RzID0+IFsiaHR0cDovL2VsYXN0aWNzZWFyY2g6OTIwMC
 JdCiAgICAgICAgaW5kZXggPT4gIndhenVoLWFsZXJ0cy0zLngtJXsrREFURX0iCiAgICAgICAgZG9jdW1lbnRfdHlwZSA9PiAid2F6dWgiCiAgICB9Cn0K" | base64 -w0 -d > /var/containers/wazuh/logstash/pipeline/pipeline.conf
 #Creación de contenedor de logstash
-docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/logstash/logstash-oss:6.2.1
+docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh-logstash:3.6.1_6.4.2
 echo "Logstash creado"
 
 #Creación y configuración de directorios para wazuh
