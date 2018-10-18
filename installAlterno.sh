@@ -6,10 +6,11 @@ sysctl -w vm.max_map_count=262144
 
 #Creación y configuración de directorios para elasticsearch
 mkdir -p /var/containers/wazuh/elk/elasticsearch/
-echo "IyA9PT09PT09PT09PT09PT09PT09IEVTTEFTVElDU0VBUkNIOiBlbGFzdGljc2VhcmNoLnltbCA9PT09PT09PT09PT09PT09PT09PT09ICMKY2x1c3
-Rlci5uYW1lOiAiZG9ja2VyLWNsdXN0ZXIiCm5ldHdvcmsuaG9zdDogMC4wLjAuMAojIG1pbmltdW1fbWFzdGVyX25vZGVzIG5lZWQgdG8gYmUgZXhwbGljaX
-RseSBzZXQgd2hlbiBib3VuZCBvbiBhIHB1YmxpYyBJUAojIHNldCB0byAxIHRvIGFsbG93IHNpbmdsZSBub2RlIGNsdXN0ZXJzCiMgRGV0YWlsczogaHR0cH
-M6Ly9naXRodWIuY29tL2VsYXN0aWMvZWxhc3RpY3NlYXJjaC9wdWxsLzE3Mjg4CmRpc2NvdmVyeS56ZW4ubWluaW11bV9tYXN0ZXJfbm9kZXM6IDE=" | base64 -w0 -d > /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml
+echo "IyA9PT09PT09PT09PT09PT09PT09IEVTTEFTVElDU0VBUkNIOiBlbGFzdGljc2VhcmNoLnltbCA9PT09PT09PT09PT09PT09PT09PT09ICMKY2x1c3R
+lci5uYW1lOiAiZG9ja2VyLWNsdXN0ZXIiCm5ldHdvcmsuaG9zdDogMC4wLjAuMAojIG1pbmltdW1fbWFzdGVyX25vZGVzIG5lZWQgdG8gYmUgZXhwbGljaXRs
+eSBzZXQgd2hlbiBib3VuZCBvbiBhIHB1YmxpYyBJUAojIHNldCB0byAxIHRvIGFsbG93IHNpbmdsZSBub2RlIGNsdXN0ZXJzCiMgRGV0YWlsczogaHR0cHM6L
+y9naXRodWIuY29tL2VsYXN0aWMvZWxhc3RpY3NlYXJjaC9wdWxsLzE3Mjg4CmRpc2NvdmVyeS56ZW4ubWluaW11bV9tYXN0ZXJfbm9kZXM6IDEKYWN0aW9uLm
+F1dG9fY3JlYXRlX2luZGV4OiArd2F6dWgtYWxlcnRzLTMueC0q" | base64 -w0 -d > /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml ##Archivo elasticsearchAlterno.yml
 docker run --name=elasticsearch_wazuh -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/elasticsearch/elasticsearch:6.4.2
 echo "Elasticsearch creado"
 
@@ -31,7 +32,7 @@ IsICJzcmNwb3J0IiwgImRzdHBvcnQiLCAic3JjdXNlciIsICJkc3R1c2VyIiwgImlkIiwgInN0YXR1cy
 ICJvc2NhcCIsICJhdWRpdCIsICJ0aW1lc3RhbXAiLCAiYmVhdCIsICJpbnB1dF90eXBlIiwgInRhZ3MiLCAiY291bnQiLCAiQHZlcnNpb24iLCAibG9nIiwgIm
 9mZnNldCIsICJ0eXBlIl0KICB9CgogIG11dGF0ZSB7CiAgICByZW5hbWUgPT4geyAiW2RhdGEyXSIgPT4gIltkYXRhXSIgfQogICAgcmVtb3ZlX2ZpZWxkID0+
 IFsiZGF0YTIiXQogIH0KCn0Kb3V0cHV0IHsKICAgIGVsYXN0aWNzZWFyY2ggewogICAgICAgIGhvc3RzID0+IFsiaHR0cDovL2VsYXN0aWNzZWFyY2g6OTIwMC
-JdCiAgICAgICAgaW5kZXggPT4gIndhenVoLWFsZXJ0cy0zLngtJXsrREFURX0iCiAgICAgICAgZG9jdW1lbnRfdHlwZSA9PiAid2F6dWgiCiAgICB9Cn0K" | base64 -w0 -d > /var/containers/wazuh/logstash/pipeline/pipeline.conf
+JdCiAgICAgICAgaW5kZXggPT4gIndhenVoLWFsZXJ0cy0zLngtJXsrREFURX0iCiAgICAgICAgZG9jdW1lbnRfdHlwZSA9PiAid2F6dWgiCiAgICB9Cn0K" | base64 -w0 -d > /var/containers/wazuh/logstash/pipeline/pipeline.conf #Archivo pipelineAlterno.yml
 #Creación de contenedor de logstash
 docker run --rm -d --name=logstash_wazuh --link=elasticsearch_wazuh:elasticsearch -v /var/containers/wazuh/logstash/pipeline/:/usr/share/logstash/pipeline/bin:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh-logstash:3.6.1_6.4.2
 echo "Logstash creado"
