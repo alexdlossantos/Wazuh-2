@@ -388,6 +388,20 @@ A continuación se muestra su contenido:
     <ssl_manager_key>/var/ossec/etc/sslmanager.key</ssl_manager_key>
     <ssl_auto_negotiate>no</ssl_auto_negotiate>
   </auth>
+  
+  <cluster> 
+    <name>wazuh</name> 
+    <node_name>manager_01</node_name> 
+    <key>17f29ed30c0864ce81b6f7ba482b428d</key> <!-- Key que debe ser la misma en todos los nodos -->
+    <node_type>master</node_type> 
+    <port>1516</port> 
+    <bind_addr>0.0.0.0</bind_addr> 
+    <nodes> 
+      <node>10.0.57.35</node> <!-- Direccion IP del nodo master -->
+    </nodes> 
+    <hidden>no</hidden> 
+    <disabled>no</disabled> 
+</cluster>
 
 </ossec_config>
 ```
