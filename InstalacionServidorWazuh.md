@@ -1646,7 +1646,7 @@ wazuh_clusterd.debug=0
 Finalmente para crear el contenedor correspondiente al API de Wazuh ejecutamos el siguiente comando:
 
 ```bash
-docker run --name=wazuh -d --link=logstash_wazuh:logstash -p 1514:1514/udp -p 1515:1515 -p 514:514/udp -p 55000:55000 -v /var/containers/wazuh/wazuh/var/ossec/data:/var/ossec/data:z -v /var/containers/wazuh/wazuh/etc/postfix:/etc/postfix:z -v /var/containers/wazuh/wazuh/etc/filebeat:/etc/filebeat:z -v /var/containers/wazuh/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:z -v /var/containers/wazuh/wazuh/etc/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml:z -v /var/containers/wazuh/wazuh/var/ossec/etc/shared/:/var/ossec/etc/shared/:z -v  /var/containers/wazuh/wazuh/var/log/mail.log:/var/log/mail.log:z -v /etc/localtime:/etc/localtime:ro wazuh/wazuh:3.6.1_6.4.2
+docker run --name=wazuh -d --link=logstash_wazuh:logstash -p 1514:1514/udp -p 1515:1515 -p 514:514/udp -p 55000:55000 -v /var/containers/wazuh/wazuh/var/ossec/data:/var/ossec/data:z -v /var/containers/wazuh/wazuh/etc/postfix:/etc/postfix:z -v /var/containers/wazuh/wazuh/etc/filebeat:/etc/filebeat:z -v /var/containers/wazuh/wazuh/wazuh-config-mount/etc/ossec.conf:/wazuh-config-mount/etc/ossec.conf:z -v /var/containers/wazuh/wazuh/etc/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml:z -v /var/containers/wazuh/wazuh/var/ossec/etc/shared/:/var/ossec/etc/shared/:z -v /var/containers/wazuh/wazuh/var/log/mail.log:/var/log/mail.log:z -v /etc/localtime:/etc/localtime:ro -v /var/containers/wazuh/wazuh/var/ossec/etc/internal_options.conf:/var/ossec/etc/internal_options.conf:z wazuh/wazuh:3.6.1_6.4.2
 ```
 
 ### Instalación de Kibana
