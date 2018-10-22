@@ -134,5 +134,10 @@ Finalmente modificamos el archivo **/var/ossec/etc/ossec.conf** sustituyendo la 
       <protocol>udp</protocol>
     </server>
 ```
+Reiniciamos el demonio de **ossec-control** para actualizar los cambios.
+
+```bash
+/var/ossec/bin/ossec-control restart
+```
 
 **Hasta este punto tanto el agente como el maestro ya se conocen**
