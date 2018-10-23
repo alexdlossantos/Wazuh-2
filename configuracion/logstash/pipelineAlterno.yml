@@ -47,5 +47,6 @@ output {
         hosts => ["http://elasticsearch:9200"]
         index => "wazuh-alerts-3.x-%{+DATE}"
         document_type => "wazuh"
+        template => "/etc/logstash/wazuh-elastic6-template-alerts.json"
     }
 }

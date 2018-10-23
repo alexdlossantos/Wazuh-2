@@ -11,7 +11,6 @@ Rlci5uYW1lOiAiZG9ja2VyLWNsdXN0ZXIiCm5ldHdvcmsuaG9zdDogMC4wLjAuMAojIG1pbmltdW1fbW
 RseSBzZXQgd2hlbiBib3VuZCBvbiBhIHB1YmxpYyBJUAojIHNldCB0byAxIHRvIGFsbG93IHNpbmdsZSBub2RlIGNsdXN0ZXJzCiMgRGV0YWlsczogaHR0cH
 M6Ly9naXRodWIuY29tL2VsYXN0aWMvZWxhc3RpY3NlYXJjaC9wdWxsLzE3Mjg4CmRpc2NvdmVyeS56ZW4ubWluaW11bV9tYXN0ZXJfbm9kZXM6IDE=" | base64 -w0 -d > /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml
 docker run --name=elasticsearch_wazuh -p 9200:9200 -p 9300:9300 -d -e "discovery.type=single-node" -v /var/containers/wazuh/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z -v /etc/localtime:/etc/localtime:ro docker.elastic.co/elasticsearch/elasticsearch:6.4.2
-docker exec -it elasticsearch_wazuh bash -c 'export http_proxy="http://10.0.202.7:8080" &&  export https_proxy="https://10.0.202.7:8080" && curl https://raw.githubusercontent.com/wazuh/wazuh/3.6/extensions/elasticsearch/wazuh-elastic6-template-alerts.json | curl -XPUT "http://localhost:9200/_template/wazuh" -H "Content-Type: application/json" -d @-'
 echo "Elasticsearch creado"
 
 #Creación y configuración de directorios para logstash
