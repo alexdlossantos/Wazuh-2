@@ -2,7 +2,8 @@
   "order": 0,
   "template": "wazuh-alerts-3.x-2018.10.25",
   "settings": {
-    "index.refresh_interval": "5s"
+    "index.refresh_interval": "5s",
+    "number_of_shards": 1
   },
   "mappings": {
     "wazuh": {
