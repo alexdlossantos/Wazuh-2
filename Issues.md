@@ -712,3 +712,11 @@ Donde tendremos que modificar las siguientes lineas:
 Situando el cursor en la primera linea damos play (triángulo verde)
 
 ![solucion_index_not_found_wazuh-alerts-3](imagenes/solucion_index_not_found_wazuh-alerts-3.png)
+
+Para verificar que el inidice fue creado, ejecutamos en esa misma consola el comando:
+
+```bash
+GET /_cat/indices?v
+```
+
+![verificacion_index_not_found_wazuh-alerts-3](imagenes/verificacion_index_not_found_wazuh-alerts-3.png)
