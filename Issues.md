@@ -6,7 +6,7 @@ Después de la instalación es posible que este error aparezca:
 
 ![Elasticsearch index not found: wazuh-alerts-3.x-](imagenes/index_not_found_wazuh-alerts-3.png)
 
-Este error se presenta cuando el index **wazuh-alerts-3.x-** nos es creado de manera autonoma.
+Este error se presenta cuando el index **wazuh-alerts-3.x-** nos es creado de manera automatica.
 
 La solución se presenta ingresando lo siguiente, en el apartado **Dev Tools** del dashboard.
 
@@ -708,5 +708,7 @@ Donde tendremos que modificar las siguientes lineas:
 * __PUT wazuh-alerts-3.x-*__: Donde sustituiremos el **\*** por la fecha actual inciando por el año, separando dias, mes y año por un punto. Ejemplo **wazuh-alerts-3.x-2018.10.25**.
 
 * __"template": "wazuh-alerts-3.x-*"__: Donde sustituiremos el **\*** por la fecha actual inciando por el año, separando dias, mes y año por un punto. Ejemplo **wazuh-alerts-3.x-2018.10.25**.
+
+Situando el cursor en la primera linea damos play (triángulo verde)
 
 ![solucion_index_not_found_wazuh-alerts-3](imagenes/solucion_index_not_found_wazuh-alerts-3.png)
