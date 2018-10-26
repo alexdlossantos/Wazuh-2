@@ -720,3 +720,32 @@ GET /_cat/indices?v
 ```
 
 ![verificacion_index_not_found_wazuh-alerts-3](imagenes/verificacion_index_not_found_wazuh-alerts-3.png)
+
+# Agentes de agrupación
+Hay dos métodos para configurar los agentes registrados. 
+Se pueden configurar localmente con el archivo ossec.conf o de forma remota utilizando la configuración centralizada.
+Si se utiliza la configuración centralizada, los agentes pueden asignarse a grupos, y cada grupo posee una configuración única. 
+Esto simplifica enormemente el proceso de configuración general.
+
+Una vez que se haya agregado un agente al administrador, asignarlo a un grupo utilizando la herramienta agent_groups o la API . A continuación, se muestran ejemplos de cómo asignar un agente con ID 002 al grupo 'dbms' usando estos métodos:
+
+Utilizando agent_groups :
+# /var/ossec/bin/agent_groups -a -i 002 -g dbms
+
+Se pueden crear y configurar nuevos grupos antes de asignar agentes. Si no existe un grupo antes de asignar un agente, se creará cuando se agregue el primer agente y se configure con los archivos del grupo "predeterminado" .
+
+Utilizando agent_groups :
+
+# /var/ossec/bin/agent_groups -l -g dbms
+
+Una vez que se crea un grupo, su agents.confarchivo se puede editar para incluir la configuración específica que desea asignar a este grupo. Para este ejemplo, el archivo a editar está ubicado en etc/shared/dbms/agents.confy cada agente que pertenece a este grupo recibirá este archivo.
+
+Los agentes se pueden agrupar para enviarles una configuración centralizada única que sea específica del grupo. Cada agente solo puede pertenecer a un grupo y, a menos que se configure de otra manera, todos los agentes pertenecen a un grupo llamado default.
+
+El administrador envía todos los archivos incluidos en la carpeta del grupo a los agentes que pertenecen a este grupo. Por ejemplo, todos los archivos se /var/ossec/etc/shared/defaultenviarán a todos los agentes que pertenecen al defaultgrupo.
+
+El archivo ar.conf(estado de respuesta activa) siempre se enviará a los agentes, incluso si no está presente en la carpeta del grupo.
+
+El agente almacenará los archivos compartidos en /var/ossec/etc/shared, no en una carpeta de grupo.
+
+A continuación, se encuentran los archivos que se encontrarían en esta carpeta en un agente asignado al grupo debian . Observe que estos archivos se envían al agente desde la /var/ossec/etc/shared/debiancarpeta del administrador .
